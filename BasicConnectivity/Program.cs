@@ -1,0 +1,391 @@
+﻿using Microsoft.VisualBasic;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace BasicConnectivity;
+
+class Program
+{
+    public static void Main()
+    {
+        Menu();
+    }
+
+    public static void Menu()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("==========================");
+            Console.WriteLine("\t Menu: \t");
+            Console.WriteLine("==========================");
+            Console.WriteLine("1. Manage Regions");
+            Console.WriteLine("2. Manage Country");
+            Console.WriteLine("3. Manage Locations");
+            Console.WriteLine("4. Manage Department");
+            Console.WriteLine("5. Manage Employees");
+            Console.WriteLine("6. Manage Job");
+            Console.WriteLine("7. Manage Job Histori");
+            Console.WriteLine("8. Select Join Employees");
+            Console.WriteLine("9. Join Employees Kriteria");
+            Console.WriteLine("10. Exit");
+            Console.Write("\nMasukkan Pilihan : ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Regions \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string pilih = Console.ReadLine();
+
+                    switch (pilih)
+                    {
+                        case "1":
+                            // Meminta input ID dari pengguna
+                            Console.Write("Masukkan ID: ");
+                            int id = int.Parse(Console.ReadLine());
+
+                            // Meminta input Nama dari pengguna
+                            Console.Write("Masukkan Nama Regions: ");
+                            string name = Console.ReadLine();
+
+                            // Membuat objek Regions dengan data yang diperoleh dari pengguna
+                            Regions region = new Regions
+                            {
+                                Id = id,
+                                Name = name
+                            };
+
+                            // Memanggil metode InsertReg untuk memasukkan data ke dalam tabel regions
+                            region.InsertReg(region);
+                            // memungkinkan pengguna kembali ke menu utama atau melakukan tindakan lain.
+                            Console.WriteLine("Data berhasil dimasukkan. Tekan Enter untuk kembali ke menu utama.");
+                            Console.ReadLine();
+                            break;
+                        case "2":
+                            Console.Write("Masukkan Id regions yang ingin diedit : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Console.Write("Masukkan Name regions yang ingin diubah : ");
+                            string nameRegions = Console.ReadLine();
+                            Regions.region.Update(id, nameRegions);
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Regions>("tbl_regions");
+                            break;
+                        case "4":
+                            Console.Write("Masukkan Id regions yang dicari : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Regions.region.Search(id);
+                            break;
+                        case "5":
+                            Console.Write("Masukkan Id regions yang ingin dihapus : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Regions.region.DeleteRegionById(id);
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("Tekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "2":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Country \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string choiceCountry = Console.ReadLine();
+
+                    switch (choiceCountry)
+                    {
+                        case "1":
+                            // Meminta input ID dari pengguna
+                            Console.Write("Masukkan ID : ");
+                            int id = int.Parse(Console.ReadLine());
+
+                            // Meminta input Nama dari pengguna
+                            Console.Write("Masukkan Nama Country : ");
+                            string name = Console.ReadLine();
+
+                            // Meminta input Regions_id
+                            Console.Write("Masukkan Regions_id : ");
+                            int regionId = int.Parse(Console.ReadLine());
+
+                            // Membuat objek Regions dengan data yang diperoleh dari pengguna
+                            Country country = new Country
+                            {
+                                Id = id, Name = name, Regions_id = regionId
+                            };
+
+                            // Memanggil metode InsertReg untuk memasukkan data ke dalam tabel regions
+                            Country.country.Insert(country);
+                            // memungkinkan pengguna kembali ke menu utama atau melakukan tindakan lain.
+                            Console.WriteLine("Data berhasil dimasukkan. Tekan Enter untuk kembali ke menu utama.");
+                            Console.ReadLine();
+                            break;
+                        case "2":
+                            Console.Write("Masukkan Id Countries : ");
+                            int.TryParse (Console.ReadLine(), out id);
+                            Console.Write("Masukkan Name Countries : ");
+                            string countryName = Console.ReadLine();
+                            Console.Write("Masukkan regions_Id : ");
+                            int.TryParse(Console.ReadLine(), out regionId);
+
+                            Country.country.Update(id, countryName, regionId);
+                            break;
+                        
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Country>("tbl_countries");
+                            break;
+                        case "4":
+                            Console.Write("Masukkan Id country yang dicari : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Country.country.Search(id);
+                            break;
+                        
+                        case "5":
+                            Console.Write("Masukkan Id country yang ingin dihapus : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Country.country.Delete(id);
+                            break;
+                        
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "3":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Locations \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string createLocation = Console.ReadLine();
+
+                    switch (createLocation)
+                    {
+                        case "1":
+                            // Meminta input ID dari pengguna
+                            Console.Write("Masukkan ID : ");
+                            int id = int.Parse(Console.ReadLine());
+
+                            // Meminta input Nama dari pengguna
+                            Console.Write("Masukkan Nama Country : ");
+                            string name = Console.ReadLine();
+
+                            // Meminta input Regions_id
+                            Console.Write("Masukkan Regions_id : ");
+                            int regionId = int.Parse(Console.ReadLine());
+
+                            // Membuat objek Regions dengan data yang diperoleh dari pengguna
+                            Country country = new Country
+                            {
+                                Id = id,
+                                Name = name,
+                                Regions_id = regionId
+                            };
+
+                            // Memanggil metode InsertReg untuk memasukkan data ke dalam tabel regions
+                            Country.country.Insert(country);
+                            // memungkinkan pengguna kembali ke menu utama atau melakukan tindakan lain.
+                            Console.WriteLine("Data berhasil dimasukkan. Tekan Enter untuk kembali ke menu utama.");
+                            Console.ReadLine();
+                            break;
+                        case "2":
+                            Console.Write("Masukkan Id Countries : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Console.Write("Masukkan Name Countries : ");
+                            string countryName = Console.ReadLine();
+                            Console.Write("Masukkan regions_Id : ");
+                            int.TryParse(Console.ReadLine(), out regionId);
+
+                            Country.country.Update(id, countryName, regionId);
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Location>("tbl_locations");
+                            break;
+                        case "4":
+                            Console.Write("Masukkan Id country yang dicari : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Country.country.Search(id);
+                            break;
+                        case "5":
+                            Console.Write("Masukkan Id country yang ingin dihapus : ");
+                            int.TryParse(Console.ReadLine(), out id);
+                            Country.country.Delete(id);
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "4":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Department \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string createDepartment = Console.ReadLine();
+
+                    switch (createDepartment)
+                    {
+                        case "1":
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Department>("tbl_departments");
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "5":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Employees \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string createEmployees = Console.ReadLine();
+
+                    switch (createEmployees)
+                    {
+                        case "1":
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Employees>("tbl_employees");
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "6":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Job \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string createJob = Console.ReadLine();
+
+                    switch (createJob)
+                    {
+                        case "1":
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<Job>("tbl_jobs");
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "7":
+                    Console.Clear();
+
+                    Console.WriteLine("==========================");
+                    Console.WriteLine("\t Menu Job Histori \t");
+                    Console.WriteLine("==========================");
+                    ChoiceMenu();
+                    Console.Write("\nMasukkan Pilihan : ");
+                    string createHistori = Console.ReadLine();
+
+                    switch (createHistori)
+                    {
+                        case "1":
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            ManageAll.manageAll.ShowTableData<JobHistori>("tbl_job_history");
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            break;
+                    }
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "8":
+                    ManageAll.manageAll.ShowEmployeeDataWithDetails();
+                    
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "9":
+                    ManageAll.manageAll.ShowEmployeeKriteria();
+
+                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
+                    Console.ReadLine();
+                    break;
+
+                case "10":
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+    }
+
+    public static void ChoiceMenu()
+    {
+        Console.WriteLine("1. Create");
+        Console.WriteLine("2. Edit");
+        Console.WriteLine("3. Show");
+        Console.WriteLine("4. Search");
+        Console.WriteLine("5. Delete");
+        Console.WriteLine("6. Back");
+    }
+
+
+
+
+}
