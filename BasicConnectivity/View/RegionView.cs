@@ -7,7 +7,7 @@ public class RegionView : GeneralView
         Console.WriteLine(message);
     }
 
-    public Dictionary<string, object> GetUserInputForUpdate()
+    public Dictionary<string, object> GetUserInputForInsertUpdate()
     {
         var columnValues = new Dictionary<string, object>();
 
@@ -15,22 +15,6 @@ public class RegionView : GeneralView
         int.TryParse(Console.ReadLine(), out int id);
 
         Console.Write("Masukkan Nama Regions : ");
-        string name = Console.ReadLine();
-
-        columnValues.Add("id", id);
-        columnValues.Add("name", name);
-
-        return columnValues;
-    }
-
-    public Dictionary<string, object> GetUserInputForInsert()
-    {
-        var columnValues = new Dictionary<string, object>();
-
-        Console.Write("Masukkan ID: ");
-        int.TryParse(Console.ReadLine(), out int id);
-
-        Console.Write("Masukkan Nama Regions: ");
         string name = Console.ReadLine();
 
         columnValues.Add("id", id);

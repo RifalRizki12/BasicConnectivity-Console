@@ -21,7 +21,7 @@ public class RegionController
 
     public void Update()
     {
-        var values = _regionView.GetUserInputForUpdate();
+        var values = _regionView.GetUserInputForInsertUpdate();
         int idValue = Convert.ToInt32(values["id"]);
 
         if (idValue < 0)
@@ -40,7 +40,7 @@ public class RegionController
 
     public void Insert()
     {
-        var columnValues = _regionView.GetUserInputForInsert();
+        var columnValues = _regionView.GetUserInputForInsertUpdate();
 
         if (handler.ValidateInput(columnValues))
         {
