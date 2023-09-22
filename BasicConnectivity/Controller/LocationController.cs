@@ -21,8 +21,8 @@ namespace BasicConnectivity.Controller
 
         public void ShowData()
         {
-            var countryData = _location.GetAllData("tbl_locations");
-            _locationView.ShowData(countryData);
+            var locationData = _location.GetAllData("tbl_locations");
+            _locationView.ShowData(locationData);
         }
 
         public void Update()
@@ -39,7 +39,7 @@ namespace BasicConnectivity.Controller
                 if (handler.ValidateInput(values))
                 {
                     Console.WriteLine($"\nData with ID {idValue} has been updated.");
-                    _location.UpdateById(idValue, "tbl_countries", values);
+                    _location.UpdateById(idValue, "tbl_locations", values);
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace BasicConnectivity.Controller
 
             if (handler.ValidateInput(columnValues))
             {
-                _location.Insert("tbl_countries", columnValues);
+                _location.Insert("tbl_locations", columnValues);
 
                 Console.WriteLine($"\nData has been inserted.");
             }
@@ -66,7 +66,7 @@ namespace BasicConnectivity.Controller
             }
             else
             {
-                _location.DeleteById(idToDelete, "tbl_countries");
+                _location.DeleteById(idToDelete, "tbl_locations");
                 Console.WriteLine($"\nData with ID {idToDelete} has been deleted.");
             }
         }
