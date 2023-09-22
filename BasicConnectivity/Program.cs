@@ -355,52 +355,29 @@ class Program
             switch (input2)
             {
                 case "1":
-                    controller.ShowRegionData();
+                    controller.ShowData();
                     break;
                 case "2":
-                    // Meminta input ID dari pengguna
-                    Console.Write("Masukkan ID: ");
-                    int id = int.Parse(Console.ReadLine());
-
-                    // Meminta input Nama dari pengguna
-                    Console.Write("Masukkan Nama Regions: ");
-                    string name = Console.ReadLine();
-
-                    // Membuat objek Regions dengan data yang diperoleh dari pengguna
-                    Regions region = new Regions
-                    {
-                        Id = id,
-                        Name = name
-                    };
-
-                    // Memanggil metode InsertReg untuk memasukkan data ke dalam tabel regions
-                    region.InsertReg(region);
-                    // memungkinkan pengguna kembali ke menu utama atau melakukan tindakan lain.
-                    Console.WriteLine("Data berhasil dimasukkan. Tekan Enter untuk kembali ke menu utama.");
-                    Console.ReadLine();
+                    // Memanggil metode InsertRegion untuk menginsert data ke dalam tabel regions
+                    controller.Insert();
                     break;
                 case "3":
-                    Console.Write("Masukkan Id regions yang ingin diedit : ");
-                    int.TryParse(Console.ReadLine(), out id);
-                    Console.Write("Masukkan Name regions yang ingin diubah : ");
-                    string nameRegions = Console.ReadLine();
-                    Regions.region.Update(id, nameRegions);
+                    // Memanggil metode UpdateRegion untuk mengupdate data ke dalam tabel regions
+                    controller.Update();
                     break;
                 case "4":
-                    Console.Write("Masukkan Id regions yang ingin dihapus : ");
-                    int.TryParse(Console.ReadLine(), out id);
-                    Regions.region.DeleteRegionById(id);
+                    // Memanggil metode DeleteRegion untuk menghapus data dari tabel regions
+                    controller.Delete();
                     break;
                 case "10":
                     isLoop = false;
                     break;
                 default:
-                    Console.WriteLine("Invalid choice");
+                    Console.WriteLine("\nInvalid choice");
                     break;
             }
             Console.WriteLine("Tekan Enter untuk kembali !!!");
             Console.ReadLine();
-            break;
         }
 
     }

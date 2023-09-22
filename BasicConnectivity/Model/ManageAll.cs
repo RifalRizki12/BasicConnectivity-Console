@@ -185,15 +185,6 @@ namespace BasicConnectivity
                 connection.Open();
 
                 int rowsAffected = command.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    Console.WriteLine($"Data with ID {id} has been deleted.");
-                }
-                else
-                {
-                    Console.WriteLine($"No data found with ID {id}.");
-                }
             }
             catch (Exception ex)
             {
@@ -201,7 +192,7 @@ namespace BasicConnectivity
             }
         }
 
-        public void UpdateById(int id, string tableName, Dictionary<string, object> columnValues)
+        public void UpdateById(int idUpdate, string tableName, Dictionary<string, object> columnValues)
         {
             using var connection = Provider.GetConnection();
             using var command = Provider.GetCommand();
@@ -211,9 +202,9 @@ namespace BasicConnectivity
             // Membuat string SQL untuk menentukan tabel dan kolom
             var updateColumns = string.Join(", ", columnValues.Keys.Select(key => $"{key} = @{key}"));
 
-            command.CommandText = $"UPDATE {tableName} SET {updateColumns} WHERE id = @Id";
+            command.CommandText = $"UPDATE {tableName} SET {updateColumns} WHERE id = @IdToUpdate";
 
-            command.Parameters.AddWithValue("@Id", id);
+            command.Parameters.AddWithValue("@IdToUpdate", idUpdate);
 
             // Menambahkan parameter dinamis sesuai dengan objek kolom dan nilainya
             foreach (var column in columnValues)
@@ -227,21 +218,13 @@ namespace BasicConnectivity
 
                 int rowsAffected = command.ExecuteNonQuery();
 
-                if (rowsAffected > 0)
-                {
-                    Console.WriteLine($"Data with ID {id} has been updated.");
-                }
-                else
-                {
-                    Console.WriteLine($"No data found with ID {id}.");
-                }
+                Console.WriteLine($"Rows affected: {rowsAffected}"); // Tambahkan ini untuk melihat jumlah baris yang terpengaruh.
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
         //implementasi lineQ
         public void ShowEmployeeDataWithDetails()
         {
