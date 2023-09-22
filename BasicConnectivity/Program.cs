@@ -45,72 +45,7 @@ class Program
                     break;
 
                 case "3":
-                    Console.Clear();
-
-                    Console.WriteLine("==========================");
-                    Console.WriteLine("\t Menu Locations \t");
-                    Console.WriteLine("==========================");
-                    ChoiceMenu();
-                    Console.Write("\nMasukkan Pilihan : ");
-                    string createLocation = Console.ReadLine();
-
-                    switch (createLocation)
-                    {
-                        case "1":
-                            // Meminta input ID dari pengguna
-                            Console.Write("Masukkan ID : ");
-                            int id = int.Parse(Console.ReadLine());
-
-                            // Meminta input Nama dari pengguna
-                            Console.Write("Masukkan Nama Country : ");
-                            string name = Console.ReadLine();
-
-                            // Meminta input Regions_id
-                            Console.Write("Masukkan Regions_id : ");
-                            int regionId = int.Parse(Console.ReadLine());
-
-                            // Membuat objek Regions dengan data yang diperoleh dari pengguna
-                            Country country = new Country
-                            {
-                                Id = id,
-                                Name = name,
-                                Regions_id = regionId
-                            };
-
-                            // Memanggil metode InsertReg untuk memasukkan data ke dalam tabel regions
-                            Country.country.Insert(country);
-                            // memungkinkan pengguna kembali ke menu utama atau melakukan tindakan lain.
-                            Console.WriteLine("Data berhasil dimasukkan. Tekan Enter untuk kembali ke menu utama.");
-                            Console.ReadLine();
-                            break;
-                        case "2":
-                            Console.Write("Masukkan Id Countries : ");
-                            int.TryParse(Console.ReadLine(), out id);
-                            Console.Write("Masukkan Name Countries : ");
-                            string countryName = Console.ReadLine();
-                            Console.Write("Masukkan regions_Id : ");
-                            int.TryParse(Console.ReadLine(), out regionId);
-
-                            Country.country.Update(id, countryName, regionId);
-                            break;
-                        case "3":
-                            ManageAll.manageAll.ShowTableData<Location>("tbl_locations");
-                            break;
-                        case "4":
-                            Console.Write("Masukkan Id country yang dicari : ");
-                            int.TryParse(Console.ReadLine(), out id);
-                            Country.country.Search(id);
-                            break;
-                        case "5":
-                            Console.Write("Masukkan Id country yang ingin dihapus : ");
-                            int.TryParse(Console.ReadLine(), out id);
-                            Country.country.Delete(id);
-                            break;
-                        case "6":
-                            break;
-                    }
-                    Console.WriteLine("\nTekan Enter untuk kembali !!!");
-                    Console.ReadLine();
+                    LocationMenu();
                     break;
 
                 case "4":
@@ -359,6 +294,53 @@ class Program
 
     }
 
+    public static void LocationMenu()
+    {
+        // Inisialisasi Model, View, dan Controller
+        Location dataManager = new Location();
+        LocationView view = new LocationView();
+        LocationController controller = new LocationController(dataManager, view);
+
+        var isLoop = true;
+        while (isLoop)
+        {
+            Console.Clear();
+
+            Console.WriteLine("==========================");
+            Console.WriteLine("\t Menu Locations \t");
+            Console.WriteLine("==========================");
+            ChoiceMenu();
+            Console.Write("Enter your choice: ");
+            var input2 = Console.ReadLine();
+            switch (input2)
+            {
+                case "1":
+                    controller.ShowData();
+                    break;
+                case "2":
+                    // Memanggil metode InsertRegion untuk menginsert data ke dalam tabel regions
+                    controller.Insert();
+                    break;
+                case "3":
+                    // Memanggil metode UpdateRegion untuk mengupdate data ke dalam tabel regions
+                    controller.Update();
+                    break;
+                case "4":
+                    // Memanggil metode DeleteRegion untuk menghapus data dari tabel regions
+                    controller.Delete();
+                    break;
+                case "10":
+                    isLoop = false;
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid choice");
+                    break;
+            }
+            Console.WriteLine("Tekan Enter untuk kembali !!!");
+            Console.ReadLine();
+        }
+
+    }
 
 
 }

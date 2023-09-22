@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BasicConnectivity
 {
-    public class Location
+    public class Location : ManageAll
     {
         private readonly string connectionString = "Data Source =MSI-GF75-10UEK;Database=db_mcc81;Connect Timeout=30;Integrated Security=True";
         ManageAll manageAll = new ManageAll();
