@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BasicConnectivity
 {
-    public class Regions
+    public class Regions : ManageAll
     {
         public static Regions region = new Regions();
         ManageAll manageAll = new ManageAll();
