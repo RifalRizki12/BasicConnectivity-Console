@@ -21,13 +21,13 @@ namespace BasicConnectivity.View
 
             // Meminta input
             Console.Write("Masukkan Postal Code : ");
-            int postal = int.Parse(Console.ReadLine());
+            string postal = Console.ReadLine();
 
             Console.Write("Masukkan City : ");
-            int city = int.Parse(Console.ReadLine());
+            string city = Console.ReadLine();
 
             Console.Write("Masukkan State Province : ");
-            int state = int.Parse(Console.ReadLine());
+            string state = Console.ReadLine();
 
             Console.Write("Masukkan Country_id : ");
             int country_id = int.Parse(Console.ReadLine());
